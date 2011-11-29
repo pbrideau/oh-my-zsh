@@ -101,9 +101,12 @@ else
     linecolor="black"
 fi
 
+if [ -z $SLIDE_HOST_COLOR ]; then
+    SLIDE_HOST_COLOR="blue"
+fi
 
 PROMPT='%{%f%k%b%}
-%{%B%F{$linecolor}%}┌─┤%{%B%F{$usercolor}%}%n%{%b%f%}@%{%F{blue}%}%m%{%B%F{$linecolor}%}├─┤%{%F{yellow}%}\
+%{%B%F{$linecolor}%}┌─┤%{%B%F{$usercolor}%}%n%{%b%f%}@%{%F{$SLIDE_HOST_COLOR}%}%m%{%B%F{$linecolor}%}├─┤%{%F{yellow}%}\
 %$PR_PWDLEN<..<%~%<<\
 %{%B%F{$linecolor}%}├─$curtty${(e)PR_FILLBAR}\
 $prtime┐%{%f%k%b%}
