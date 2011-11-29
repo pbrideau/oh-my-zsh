@@ -66,10 +66,10 @@ if [ -d "/sys/class/power_supply/BAT1" ]; then
         batstatus="$batsign$bat%%"
     fi
     tempbat="$batcolor$batstatus"
+    BATTERY="%{%B%F{$linecolor}%}─┤%{%b%F{yellow}%}$tempbat%{%B%F{$linecolor}%}├"
 else
-    tempbat=""
+    BATTERY=""
 fi
-BATTERY="%{%B%F{$linecolor}%}─┤%{%b%F{yellow}%}$tempbat%{%B%F{$linecolor}%}├"
 
 ZSH_THEME_GIT_PROMPT_PREFIX=" %{$reset_color%}%{%F{red}%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
