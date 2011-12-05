@@ -14,15 +14,16 @@ local TERMWIDTH
 local promptsize
 (( TERMWIDTH = ${COLUMNS} - 3 ))
 
-time_enabled="%(?.%{%F{green}%}.%{%F{red}%})%*%{$reset_color%}"
-prtime="%{%B%F{$linecolor}%}┤$time_enabled%{%B%F{$linecolor}%}├─"
-promptsize=${#${(%):---(%n@%m)---(%y)-(%*)-}}
-curtty="%{%B%F{$linecolor}%}┤%{%b%F{cyan}%}%y%{%B%F{$linecolor}%}├─"
 
 if [ $TERMWIDTH -lt 40 ]; then
     promptsize=${#${(%):---(%n@%m)---}}
     curtty=""
     prtime=""
+else
+    time_enabled="%(?.%{%F{green}%}.%{%F{red}%})%*%{$reset_color%}"
+    prtime="%{%B%F{$SLIDE_LINE_COLOR}%}┤$time_enabled%{%B%F{$SLIDE_LINE_COLOR}%}├─"
+    promptsize=${#${(%):---(%n@%m)---(%y)-(%*)-}}
+    curtty="%{%B%F{$SLIDE_LINE_COLOR}%}┤%{%b%F{cyan}%}%y%{%B%F{$SLIDE_LINE_COLOR}%}├─"
 fi
 
 local pwdsize=${#${(%):-%~}}
