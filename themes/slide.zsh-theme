@@ -77,7 +77,7 @@ if [ -d "/sys/class/power_supply/BAT1" ]; then
         batstatus="$batsign$bat%%"
     fi
     tempbat="$batcolor$batstatus"
-    BATTERY="%{%B%F{$linecolor}%}─┤%{%b%F{yellow}%}$tempbat%{%B%F{$linecolor}%}├"
+    BATTERY="%{%B%F{$SLIDE_LINE_COLOR}%}─┤%{%b%F{yellow}%}$tempbat%{%B%F{$SLIDE_LINE_COLOR}%}├"
 else
     BATTERY=""
 fi
@@ -87,8 +87,8 @@ fi
 ################################################################################
 ZSH_THEME_GIT_PROMPT_PREFIX=" %{$reset_color%}%{%F{red}%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{%F{yellow}%} ✗ $(git_prompt_status)%{%B%F{$linecolor}%}├─┤%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{green}%} ✓ %{%B%F{$linecolor}%}├─┤%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{%F{yellow}%} ✗ $(git_prompt_status)%{%B%F{$SLIDE_LINE_COLOR}%}├─┤%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{green}%} ✓ %{%B%F{$SLIDE_LINE_COLOR}%}├─┤%{$reset_color%}"
 
 ZSH_THEME_GIT_PROMPT_ADDED="%{%F{green}%}ⓐ "        # ⓐ ⑃✚
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{%F{cyan}%}ⓣ "    # ⓣ✭
@@ -105,14 +105,20 @@ fi
 
 function setprompt () {
 
-usercolor=""
-linecolor=""
-if [ $EUID -eq 0 ]; then
-    usercolor="red"
-    linecolor="red"
-else
-    usercolor="green"
-    linecolor="black"
+if [ -z $SLIDE_USER_COLOR ]; then
+    if [ $EUID -eq 0 ]; then
+        SLIDE_USER_COLOR="red"
+    else
+        SLIDE_USER_COLOR="green"
+    fi
+fi
+
+if [ -z $SLIDE_HOST_COLOR ]; then
+    if [ $EUID -eq 0 ]; then
+        SLIDE_LINE_COLOR="red"
+    else
+        SLIDE_LINE_COLOR="black"
+    fi
 fi
 
 if [ -z $SLIDE_HOST_COLOR ]; then
@@ -120,15 +126,15 @@ if [ -z $SLIDE_HOST_COLOR ]; then
 fi
 
 PROMPT='%{%f%k%b%}
-%{%B%F{$linecolor}%}┌─┤%{%B%F{$usercolor}%}%n%{%b%f%}@%{%F{$SLIDE_HOST_COLOR}%}%m%{%B%F{$linecolor}%}├─┤%{%F{yellow}%}\
+%{%B%F{$SLIDE_LINE_COLOR}%}┌─┤%{%B%F{$SLIDE_USER_COLOR}%}%n%{%b%f%}@%{%F{$SLIDE_HOST_COLOR}%}%m%{%B%F{$SLIDE_LINE_COLOR}%}├─┤%{%F{yellow}%}\
 %$PR_PWDLEN<..<%~%<<\
-%{%B%F{$linecolor}%}├─$curtty${(e)PR_FILLBAR}\
+%{%B%F{$SLIDE_LINE_COLOR}%}├─$curtty${(e)PR_FILLBAR}\
 $prtime┐%{%f%k%b%}
-%{%B%F{$linecolor}%}└${(e)BATTERY}\
-%{%B%F{$linecolor}%}─┤%{%B%F{$usercolor}%}$%{%B%F{$linecolor}%}%{%f%k%b%} '
+%{%B%F{$SLIDE_LINE_COLOR}%}└${(e)BATTERY}\
+%{%B%F{$SLIDE_LINE_COLOR}%}─┤%{%B%F{$SLIDE_USER_COLOR}%}$%{%B%F{$SLIDE_LINE_COLOR}%}%{%f%k%b%} '
 
-RPROMPT='%{%B%F{$linecolor}%}│$(git_prompt_info)%{%f%b%}!%{%B%F{cyan}%}%!%{%B%F{$linecolor}%}├─┘%{%f%k%b%}'
-PS2='%{%B%F{$linecolor}%}└─┤%{%B%F{red}%}%_%{%B%F{$linecolor}%}.. '
+RPROMPT='%{%B%F{$SLIDE_LINE_COLOR}%}│$(git_prompt_info)%{%f%b%}!%{%B%F{cyan}%}%!%{%B%F{$SLIDE_LINE_COLOR}%}├─┘%{%f%k%b%}'
+PS2='%{%B%F{$SLIDE_LINE_COLOR}%}└─┤%{%B%F{red}%}%_%{%B%F{$SLIDE_LINE_COLOR}%}.. '
 
 }
 
