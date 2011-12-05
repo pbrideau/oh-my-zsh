@@ -15,6 +15,9 @@ local promptsize
 (( TERMWIDTH = ${COLUMNS} - 3 ))
 
 
+################################################################################
+# DON'T SHOW TTY AND TIME IF IN A SMALL SHELL
+################################################################################
 if [ $TERMWIDTH -lt 40 ]; then
     promptsize=${#${(%):---(%n@%m)---}}
     curtty=""
@@ -26,6 +29,10 @@ else
     curtty="%{%B%F{$SLIDE_LINE_COLOR}%}┤%{%b%F{cyan}%}%y%{%B%F{$SLIDE_LINE_COLOR}%}├─"
 fi
 
+
+################################################################################
+# SET THE LENGTH OF THE FILL BAR
+################################################################################
 local pwdsize=${#${(%):-%~}}
 PR_HBAR='─'
 PR_PWDLEN=""
@@ -38,6 +45,9 @@ else
 fi
 
 #⚡↑↓
+################################################################################
+# CREATE A BATTERY IN THE PROMPT IF PRESENT
+################################################################################
 if [ -d "/sys/class/power_supply/BAT1" ]; then
     batcur=$(cat /sys/class/power_supply/BAT1/charge_now)
     batcap=$(cat /sys/class/power_supply/BAT1/charge_full)
@@ -72,6 +82,9 @@ else
     BATTERY=""
 fi
 
+################################################################################
+# SET THE CONTENT OF THE GIT PROMPT
+################################################################################
 ZSH_THEME_GIT_PROMPT_PREFIX=" %{$reset_color%}%{%F{red}%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{%F{yellow}%} ✗ $(git_prompt_status)%{%B%F{$linecolor}%}├─┤%{$reset_color%}"
