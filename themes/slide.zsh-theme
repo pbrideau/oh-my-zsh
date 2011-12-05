@@ -1,6 +1,24 @@
+################################################################################
+# SLIDE THEME, by Patrick Brideau
+#
+# Usable Variables in the .zshrc:
+#       SLIDE_LINE_COLOR = Set the color for the lines
+#       SLIDE_USER_COLOR = Color for the displayed user
+#       SLIDE_HOST_COLOR = Color fot the displayed computer name
+#
+#       DEFAULTS COLORS (normal user):
+#           SLIDE_LINE_COLOR="black"
+#           SLIDE_USER_COLOR="green"
+#           SLIDE_HOST_COLOR="blue"
+#       DEFAULTS COLORS (root):
+#           SLIDE_LINE_COLOR="red"
+#           SLIDE_USER_COLOR="red"
+#           SLIDE_HOST_COLOR="blue"
+################################################################################
 # Inspiration from 
 #           http://aperiodic.net/phil/prompt/
 #           and wedisagree.zsh-theme from oh-my-zsh
+#
 # More symbols to choose from:
 # ☀ ✹ ☄ ♆ ♀ ♁ ♐ ♇ ♈ ♉ ♚ ♛ ♜ ♝ ♞ ♟ ♠ ♣ ⚢ ⚲ ⚳ ⚴ ⚥ ⚤ ⚦ ⚒ ⚑ ⚐ ♺ ♻ ♼ ☰ ☱ ☲ ☳ ☴ ☵ ☶ ☷
 # ✡ ✔ ✖ ✚ ✱ ✤ ✦ ❤ ➜ ➟ ➼ ✂ ✎ ✐ ⨀ ⨁ ⨂ ⨍ ⨎ ⨏ ⨷ ⩚ ⩛ ⩡ ⩱ ⩲ ⩵  ⩶ ⨠ 
