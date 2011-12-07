@@ -90,35 +90,44 @@ fi
 #⚡↑↓
 ################################################################################
 # CREATE A BATTERY IN THE PROMPT IF PRESENT
+# you may have to change the location of your battery
 ################################################################################
-if [ -d "/sys/class/power_supply/BAT1" ]; then
+if [ -z $SLIDE_BATTERY ]; then
+    SLIDE_BATTERY="/sys/class/power_supply/BAT1/"
+fi
+if [ -d "$SLIDE_BATTERY" ]; then
     batcur=$(cat /sys/class/power_supply/BAT1/charge_now)
     batcap=$(cat /sys/class/power_supply/BAT1/charge_full)
     batsta=$(cat /sys/class/power_supply/BAT1/status)
     bat="$(( $batcur * 100 / $batcap ))"
-    if [ $bat -lt 30 ]; then
-        batcolor="%{%b%F{red}%}"
-    else
-        if [ $bat -eq 100 ]; then
+
+    case $batsta in
+        "Charging")
+            batsign="↑";;
+        "Discharging")
+            batsign="↓";;
+        *)
+            batsign="⚡";;
+    esac
+    case $bat in
+        [1-9]) ;&
+        1[0-9])
+            batstatus="$batsign$bat%%"
+            batcolor="%{%b%F{red}%}"
+            ;;
+        [2-4][0-9])
+            batstatus="$batsign$bat%%"
             batcolor="%{%b%F{yellow}%}"
-        else
+            ;;
+        100)
+            batstatus="$batsign"
+            batcolor="%{%b%F{yellow}%}"
+            ;;
+        *)
+            batstatus="$batsign$bat%%"
             batcolor="%{%b%F{green}%}"
-        fi
-    fi
-    if [ "$batsta" = "Charging" ]; then
-        batsign="↑"
-    else 
-        if [ "$batsta" = "Discharging" ]; then
-            batsign="↓"
-        else
-            batsign="⚡"
-        fi
-    fi
-    if [ $bat -eq 100 ]; then
-        batstatus="$batsign"
-    else
-        batstatus="$batsign$bat%%"
-    fi
+            ;;
+    esac
     tempbat="$batcolor$batstatus"
     BATTERY="%{%B%F{$SLIDE_LINE_COLOR}%}─┤%{%b%F{yellow}%}$tempbat%{%B%F{$SLIDE_LINE_COLOR}%}├"
 else
