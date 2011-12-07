@@ -140,21 +140,22 @@ fi
 ################################################################################
 # SET THE CONTENT OF THE GIT PROMPT
 ################################################################################
-ZSH_THEME_GIT_PROMPT_PREFIX=" %{$reset_color%}%{%F{red}%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{%F{yellow}%} ✗ $(git_prompt_status)%{%B%F{$SLIDE_LINE_COLOR}%}├─┤%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{green}%} ✓ %{%B%F{$SLIDE_LINE_COLOR}%}├─┤%{$reset_color%}"
 
-ZSH_THEME_GIT_PROMPT_ADDED="%{%F{green}%}ⓐ "        # ⓐ ⑃✚
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%{%F{cyan}%}ⓣ "    # ⓣ✭
-ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[yellow]%}ⓜ "  # ⓜ ⑁⚡
-ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%}ⓧ "      # ⓧ ⑂✖
-ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[blue]%}ⓡ "     # ⓡ ⑄➜
-ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[magenta]%}ⓤ " # ⓤ ⑊♒
+if [ -z "$(echo $plugins | grep git)" ]; then
+    _GIT=""
+else
+    ZSH_THEME_GIT_PROMPT_PREFIX=" %{$reset_color%}%{%F{red}%}"
+    ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+    ZSH_THEME_GIT_PROMPT_DIRTY="%{%F{yellow}%} ✗ $(git_prompt_status)%{%B%F{$SLIDE_LINE_COLOR}%}├─┤%{$reset_color%}"
+    ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{green}%} ✓ %{%B%F{$SLIDE_LINE_COLOR}%}├─┤%{$reset_color%}"
 
-if [ ! "$(echo $plugins | grep git)" ]; then
-    git_prompt_info=""
-    git_prompt_status=""
+    ZSH_THEME_GIT_PROMPT_ADDED="%{%F{green}%}ⓐ "        # ⓐ ⑃✚
+    ZSH_THEME_GIT_PROMPT_UNTRACKED="%{%F{cyan}%}ⓣ "    # ⓣ✭
+    ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[yellow]%}ⓜ "  # ⓜ ⑁⚡
+    ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%}ⓧ "      # ⓧ ⑂✖
+    ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[blue]%}ⓡ "     # ⓡ ⑄➜
+    ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[magenta]%}ⓤ " # ⓤ ⑊♒
+    _GIT=$(git_prompt_info)
 fi
 }
 
@@ -181,14 +182,14 @@ if [ -z $SLIDE_HOST_COLOR ]; then
 fi
 
 PROMPT='%{%f%k%b%}
-%{%B%F{$SLIDE_LINE_COLOR}%}┌─┤%{%B%F{$SLIDE_USER_COLOR}%}%n%{%b%f%}@%{%F{$SLIDE_HOST_COLOR}%}%m%{%B%F{$SLIDE_LINE_COLOR}%}├─┤%{%F{yellow}%}\
+%{%B%F{$SLIDE_LINE_COLOR}%}┌─┤%{%B%F{$SLIDE_USER_COLOR}%}%n%{%b%f%}@%{%F{$SLIDE_HOST_COLOR}%}%m$VPN%{%B%F{$SLIDE_LINE_COLOR}%}├─┤%{%F{yellow}%}\
 %$PR_PWDLEN<..<%~%<<\
 %{%B%F{$SLIDE_LINE_COLOR}%}├─$curtty${(e)PR_FILLBAR}\
 $prtime┐%{%f%k%b%}
 %{%B%F{$SLIDE_LINE_COLOR}%}└${(e)BATTERY}\
 %{%B%F{$SLIDE_LINE_COLOR}%}─┤%{%B%F{$SLIDE_USER_COLOR}%}$%{%B%F{$SLIDE_LINE_COLOR}%}%{%f%k%b%} '
 
-RPROMPT='%{%B%F{$SLIDE_LINE_COLOR}%}│$(git_prompt_info)%{%f%b%}!%{%B%F{cyan}%}%!%{%B%F{$SLIDE_LINE_COLOR}%}├─┘%{%f%k%b%}'
+RPROMPT='%{%B%F{$SLIDE_LINE_COLOR}%}│$_GIT%{%f%b%}!%{%B%F{cyan}%}%!%{%B%F{$SLIDE_LINE_COLOR}%}├─┘%{%f%k%b%}'
 PS2='%{%B%F{$SLIDE_LINE_COLOR}%}└─┤%{%B%F{red}%}%_%{%B%F{$SLIDE_LINE_COLOR}%}.. '
 
 }
