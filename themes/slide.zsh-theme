@@ -5,15 +5,18 @@
 #       SLIDE_LINE_COLOR = Set the color for the lines
 #       SLIDE_USER_COLOR = Color for the displayed user
 #       SLIDE_HOST_COLOR = Color fot the displayed computer name
+#       SLIDE_BATTERY    = Location of the battery folder
 #
-#       DEFAULTS COLORS (normal user):
-#           SLIDE_LINE_COLOR="black"
-#           SLIDE_USER_COLOR="green"
-#           SLIDE_HOST_COLOR="blue"
-#       DEFAULTS COLORS (root):
-#           SLIDE_LINE_COLOR="red"
-#           SLIDE_USER_COLOR="red"
-#           SLIDE_HOST_COLOR="blue"
+#       DEFAULTS (normal user):
+#           SLIDE_LINE_COLOR = "black"
+#           SLIDE_USER_COLOR = "green"
+#           SLIDE_HOST_COLOR = "blue"
+#           SLIDE_BATTERY    = "/sys/class/power_supply/BAT1/"
+#       DEFAULTS (root):
+#           SLIDE_LINE_COLOR = "red"
+#           SLIDE_USER_COLOR = "red"
+#           SLIDE_HOST_COLOR = "blue"
+#           SLIDE_BATTERY    = "/sys/class/power_supply/BAT1/"
 ################################################################################
 # Inspiration from 
 #           http://aperiodic.net/phil/prompt/
