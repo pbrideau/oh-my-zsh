@@ -149,12 +149,12 @@ else
     ZSH_THEME_GIT_PROMPT_DIRTY="%{%F{yellow}%} ✗ $(git_prompt_status)%{%B%F{$SLIDE_LINE_COLOR}%}├─┤%{$reset_color%}"
     ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{green}%} ✓ %{%B%F{$SLIDE_LINE_COLOR}%}├─┤%{$reset_color%}"
 
-    ZSH_THEME_GIT_PROMPT_ADDED="%{%F{green}%}ⓐ "        # ⓐ ⑃✚
-    ZSH_THEME_GIT_PROMPT_UNTRACKED="%{%F{cyan}%}ⓣ "    # ⓣ✭
-    ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[yellow]%}ⓜ "  # ⓜ ⑁⚡
-    ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%}ⓧ "      # ⓧ ⑂✖
-    ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[blue]%}ⓡ "     # ⓡ ⑄➜
-    ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[magenta]%}ⓤ " # ⓤ ⑊♒
+    ZSH_THEME_GIT_PROMPT_ADDED="%{%F{green}%}✚ "        # ⓐ ⑃✚
+    ZSH_THEME_GIT_PROMPT_UNTRACKED="%{%F{cyan}%}✭ "    # ⓣ✭
+    ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[yellow]%}⚡ "  # ⓜ ⑁⚡
+    ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%}✖ "      # ⓧ ⑂✖
+    ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[blue]%}➜ "     # ⓡ ⑄➜
+    ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[magenta]%}♒ " # ⓤ ⑊♒
     _GIT=$(git_prompt_info)
 fi
 }
