@@ -56,7 +56,7 @@ fi
 UPDATES=""
 countupdates=$(cat /home/pat/.aptcount)
 #export countupdates=0
-if [ $countupdates -gt 0 ]; then
+if [ "$countupdates" -gt "0" ]; then
     UPDATES="%{%B%F{$SLIDE_LINE_COLOR}%}├─┤%{%B%F{red}%}$countupdates"
     promptsize=$(($promptsize+3+${#${(%):-$countupdates}}))
 fi
