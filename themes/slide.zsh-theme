@@ -51,13 +51,24 @@ else
 fi
 
 ################################################################################
+# SHOW IF THERE IS AVAILABLE UPGRADES (DEBIAN)
+################################################################################
+UPDATES=""
+countupdates=$(cat /home/pat/.aptcount)
+#export countupdates=0
+if [ $countupdates -gt 0 ]; then
+    UPDATES="%{%B%F{$SLIDE_LINE_COLOR}%}├─┤%{%B%F{red}%}$countupdates"
+    promptsize=$(($promptsize+3+${#${(%):-$countupdates}}))
+fi
+
+################################################################################
 # SHOW IF CONNECTED THROUGH VPN
 ################################################################################
 VPN=""
-ifaces=$(route -n | awk {'print $8'})
-lineroute=$(route -n | sed -ne '3p')
 # Only parse if there is a tunnel interface
 if [ -n "$(grep tun0 /proc/net/dev)" ]; then
+    ifaces=$(route -n | awk {'print $8'})
+    lineroute=$(route -n | sed -ne '3p')
     if [ "$(echo $lineroute | awk {'print $1'})" = "0.0.0.0" ]; then
         if [ "$(echo $lineroute | awk {'print $8'})" = "tun0" ]; then
             VPN="%{%B%F{red}%}⬊⚑"
@@ -182,7 +193,7 @@ if [ -z $SLIDE_HOST_COLOR ]; then
 fi
 
 PROMPT='%{%f%k%b%}
-%{%B%F{$SLIDE_LINE_COLOR}%}┌─┤%{%B%F{$SLIDE_USER_COLOR}%}%n%{%b%f%}@%{%F{$SLIDE_HOST_COLOR}%}%m$VPN%{%B%F{$SLIDE_LINE_COLOR}%}├─┤%{%F{yellow}%}\
+%{%B%F{$SLIDE_LINE_COLOR}%}┌─┤%{%B%F{$SLIDE_USER_COLOR}%}%n%{%b%f%}@%{%F{$SLIDE_HOST_COLOR}%}%m$VPN$UPDATES%{%B%F{$SLIDE_LINE_COLOR}%}├─┤%{%F{yellow}%}\
 %$PR_PWDLEN<..<%~%<<\
 %{%B%F{$SLIDE_LINE_COLOR}%}├─$curtty${(e)PR_FILLBAR}\
 $prtime┐%{%f%k%b%}
